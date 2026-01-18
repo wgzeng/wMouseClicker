@@ -214,7 +214,7 @@ class MouseClicker:
     def __init__(self, root):
         self.root = root
         self.root.title("wMouseClicker")
-        self.root.geometry("420x640")
+        self.root.geometry("680x640")
         self.root.resizable(False, False)
         self.root.configure(bg="#1a1a2e")
         
@@ -265,10 +265,101 @@ class MouseClicker:
         style.map("Stop.TButton", background=[("active", "#c73e54")])
         style.configure("TRadiobutton", background="#1a1a2e", foreground="#eaf6ff", font=("Segoe UI", 10))
         style.configure("TCheckbutton", background="#1a1a2e", foreground="#eaf6ff", font=("Segoe UI", 10))
+        style.configure("Help.TLabel", background="#16213e", foreground="#eaf6ff", font=("Segoe UI", 9))
+        style.configure("HelpTitle.TLabel", background="#16213e", foreground="#00d9ff", font=("Segoe UI", 11, "bold"))
+        style.configure("Step.TLabel", background="#16213e", foreground="#eaf6ff", font=("Segoe UI", 9))
+        style.configure("StepNum.TLabel", background="#16213e", foreground="#e94560", font=("Segoe UI", 10, "bold"))
         
     def create_widgets(self):
-        main_frame = ttk.Frame(self.root, padding="15")
-        main_frame.pack(fill=tk.BOTH, expand=True)
+        # Main container with two columns
+        container = ttk.Frame(self.root)
+        container.pack(fill=tk.BOTH, expand=True)
+        
+        # Left panel - Controls
+        left_panel = ttk.Frame(container, padding="15")
+        left_panel.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
+        # Right panel - Instructions
+        right_panel = tk.Frame(container, bg="#16213e", width=230)
+        right_panel.pack(side=tk.RIGHT, fill=tk.Y)
+        right_panel.pack_propagate(False)
+        
+        # === RIGHT PANEL - Instructions ===
+        help_inner = tk.Frame(right_panel, bg="#16213e", padx=15, pady=15)
+        help_inner.pack(fill=tk.BOTH, expand=True)
+        
+        tk.Label(help_inner, text="📋 How to Use", bg="#16213e", fg="#00d9ff", 
+                 font=("Segoe UI", 12, "bold")).pack(anchor=tk.W, pady=(0, 15))
+        
+        # Step 1
+        step1_frame = tk.Frame(help_inner, bg="#16213e")
+        step1_frame.pack(fill=tk.X, pady=5)
+        tk.Label(step1_frame, text="①", bg="#16213e", fg="#e94560", 
+                 font=("Segoe UI", 14, "bold")).pack(side=tk.LEFT)
+        tk.Label(step1_frame, text="Press F6 to start capture", bg="#16213e", fg="#eaf6ff",
+                 font=("Segoe UI", 10)).pack(side=tk.LEFT, padx=(8, 0))
+        
+        # Step 2
+        step2_frame = tk.Frame(help_inner, bg="#16213e")
+        step2_frame.pack(fill=tk.X, pady=5)
+        tk.Label(step2_frame, text="②", bg="#16213e", fg="#e94560",
+                 font=("Segoe UI", 14, "bold")).pack(side=tk.LEFT)
+        step2_text = tk.Frame(help_inner, bg="#16213e")
+        step2_text.pack(fill=tk.X, padx=(26, 0))
+        tk.Label(step2_text, text="Click on the position", bg="#16213e", fg="#eaf6ff",
+                 font=("Segoe UI", 10)).pack(anchor=tk.W)
+        tk.Label(step2_text, text="where you want to auto-click", bg="#16213e", fg="#7f8c8d",
+                 font=("Segoe UI", 9)).pack(anchor=tk.W)
+        
+        # Step 3
+        step3_frame = tk.Frame(help_inner, bg="#16213e")
+        step3_frame.pack(fill=tk.X, pady=(10, 5))
+        tk.Label(step3_frame, text="③", bg="#16213e", fg="#e94560",
+                 font=("Segoe UI", 14, "bold")).pack(side=tk.LEFT)
+        step3_text = tk.Frame(help_inner, bg="#16213e")
+        step3_text.pack(fill=tk.X, padx=(26, 0))
+        tk.Label(step3_text, text="Draw a rectangle around", bg="#16213e", fg="#eaf6ff",
+                 font=("Segoe UI", 10)).pack(anchor=tk.W)
+        tk.Label(step3_text, text="the UI area to monitor", bg="#16213e", fg="#7f8c8d",
+                 font=("Segoe UI", 9)).pack(anchor=tk.W)
+        
+        # Step 4
+        step4_frame = tk.Frame(help_inner, bg="#16213e")
+        step4_frame.pack(fill=tk.X, pady=(10, 5))
+        tk.Label(step4_frame, text="④", bg="#16213e", fg="#e94560",
+                 font=("Segoe UI", 14, "bold")).pack(side=tk.LEFT)
+        step4_text = tk.Frame(help_inner, bg="#16213e")
+        step4_text.pack(fill=tk.X, padx=(26, 0))
+        tk.Label(step4_text, text="Click on rest position", bg="#16213e", fg="#eaf6ff",
+                 font=("Segoe UI", 10)).pack(anchor=tk.W)
+        tk.Label(step4_text, text="(where to click after main click)", bg="#16213e", fg="#7f8c8d",
+                 font=("Segoe UI", 9)).pack(anchor=tk.W)
+        
+        # Step 5
+        step5_frame = tk.Frame(help_inner, bg="#16213e")
+        step5_frame.pack(fill=tk.X, pady=(10, 5))
+        tk.Label(step5_frame, text="⑤", bg="#16213e", fg="#e94560",
+                 font=("Segoe UI", 14, "bold")).pack(side=tk.LEFT)
+        step5_text = tk.Frame(help_inner, bg="#16213e")
+        step5_text.pack(fill=tk.X, padx=(26, 0))
+        tk.Label(step5_text, text="Set interval & Start!", bg="#16213e", fg="#eaf6ff",
+                 font=("Segoe UI", 10)).pack(anchor=tk.W)
+        
+        # Hotkeys section
+        tk.Label(help_inner, text="⌨️ Hotkeys", bg="#16213e", fg="#00d9ff",
+                 font=("Segoe UI", 11, "bold")).pack(anchor=tk.W, pady=(25, 10))
+        
+        hotkeys = [("F6", "Capture"), ("F7", "Start"), ("F8", "Stop"), ("ESC", "Cancel")]
+        for key, action in hotkeys:
+            hk_frame = tk.Frame(help_inner, bg="#16213e")
+            hk_frame.pack(fill=tk.X, pady=2)
+            tk.Label(hk_frame, text=key, bg="#0f3460", fg="#00d9ff", 
+                     font=("Consolas", 9, "bold"), padx=6, pady=2).pack(side=tk.LEFT)
+            tk.Label(hk_frame, text=action, bg="#16213e", fg="#eaf6ff",
+                     font=("Segoe UI", 9)).pack(side=tk.LEFT, padx=(8, 0))
+        
+        # === LEFT PANEL - Controls ===
+        main_frame = left_panel
         
         # Header
         ttk.Label(main_frame, text="🖱️ wMouseClicker", style="Header.TLabel").pack(pady=(0, 10))
